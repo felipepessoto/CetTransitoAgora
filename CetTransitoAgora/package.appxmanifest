@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
+  <Identity Name="d3f77879-3b95-41f3-8e98-3378a780493e" Version="1.0.0.0" Publisher="CN=Fujiy" />
+  <Properties>
+    <DisplayName>CET - Transito Agora</DisplayName>
+    <PublisherDisplayName>Fujiy</PublisherDisplayName>
+    <Logo>images\storelogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.3.0</OSMinVersion>
+    <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" StartPage="default.html">
+      <m2:VisualElements DisplayName="CET - Transito Agora" Description="CET - Transito Agora" ForegroundText="light" BackgroundColor="#464646" Square150x150Logo="images\Logo.png" Square30x30Logo="images\SmallLogo.png">
+        <m2:DefaultTile Square310x310Logo="images\logo310.png" Wide310x150Logo="images\logo310-150.png">
+        </m2:DefaultTile>
+        <m2:SplashScreen Image="images\splashscreen.png" BackgroundColor="#FFFFFF" />
+      </m2:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
