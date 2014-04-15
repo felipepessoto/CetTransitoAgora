@@ -76,10 +76,7 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\background.js" />
     <Content Include="Scripts\default.js" />
-    <Content Include="Scripts\jquery-2.1.0.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
-    <Content Include="Scripts\jquery-2.1.0.min.map" />
     <None Include="CetTransitoAgora_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
