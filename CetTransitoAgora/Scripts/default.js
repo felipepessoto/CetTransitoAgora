@@ -6,6 +6,11 @@
     var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
     var notifications = Windows.UI.Notifications;
+    
+    WinJS.Application.onsettings = function (e) {
+        e.detail.applicationcommands = { "privacyPolicy": { title: "Privacy Policy", href: "/privacy.html" } };
+        WinJS.UI.SettingsFlyout.populateSettings(e);
+    };
 
     app.onactivated = function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
