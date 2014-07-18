@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>59e1536e-7c68-48b8-a2cf-e0dd689caae3</SharedGUID>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)css\default.css" />
+    <Content Include="$(MSBuildThisFileDirectory)default.html" />
+    <Content Include="$(MSBuildThisFileDirectory)images\ALTA.gif" />
+    <Content Include="$(MSBuildThisFileDirectory)images\BAIXA.gif" />
+    <Content Include="$(MSBuildThisFileDirectory)images\ESTAVEL.gif" />
+    <Content Include="$(MSBuildThisFileDirectory)js\background.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\default.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\jquery-2.1.0.min.js" />
+    <Content Include="$(MSBuildThisFileDirectory)privacy.html" />
+  </ItemGroup>
+</Project>
