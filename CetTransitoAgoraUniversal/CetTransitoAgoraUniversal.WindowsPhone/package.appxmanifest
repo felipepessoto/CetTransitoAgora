@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="915Fujiy.CET-TransitoAgora" Version="1.2.0.0" Publisher="CN=9FAEAAEF-74D6-4DD5-B2FB-B5C397EFD3E4" />
+  <Identity Name="915Fujiy.CET-TransitoAgora" Version="1.2.0.1" Publisher="CN=9FAEAAEF-74D6-4DD5-B2FB-B5C397EFD3E4" />
   <mp:PhoneIdentity PhoneProductId="f1dba952-978c-4975-95cb-ddd0fb1ddb1c" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>CET - Transito Agora</DisplayName>
@@ -16,7 +16,7 @@
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <m3:VisualElements DisplayName="CetTransitoAgoraUniversal.WindowsPhone" Square150x150Logo="images\Square150x150Logo.png" Square44x44Logo="images\Square44x44Logo.png" Description="CET - Transito Agora" ForegroundText="light" BackgroundColor="transparent">
+      <m3:VisualElements DisplayName="CET - Transito Agora" Square150x150Logo="images\Square150x150Logo.png" Square44x44Logo="images\Square44x44Logo.png" Description="CET - Transito Agora" ForegroundText="light" BackgroundColor="transparent">
         <m3:DefaultTile Wide310x150Logo="images\Wide310x150Logo.png" Square71x71Logo="images\Square71x71Logo.png">
         </m3:DefaultTile>
         <m3:SplashScreen Image="images\SplashScreen.png" />
