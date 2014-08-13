@@ -14,6 +14,13 @@
     var notifications = Windows.UI.Notifications;
     
     var updateBadge = function (totalKm) {
+        
+        var template = notifications.TileTemplateType.tileSquare150x150Block;
+        var tileXml = notifications.TileUpdateManager.getTemplateContent(template);
+        var tileTextAttributes = tileXml.getElementsByTagName("text");
+        tileTextAttributes[0].appendChild(tileXml.createTextNode(totalKm.toString()));
+        return;
+
         var badgeType = notifications.BadgeTemplateType.badgeNumber;
         var badgeXml = notifications.BadgeUpdateManager.getTemplateContent(badgeType);
 

@@ -97,6 +97,45 @@
     };
 
     app.updateBadge = function (totalKm) {
+        
+        //Obtem Template
+        var template = notifications.TileTemplateType.tileSquare150x150Block;
+        var tileXml = notifications.TileUpdateManager.getTemplateContent(template);
+        
+        //Configura Texto
+        var tileTextAttributes = tileXml.getElementsByTagName("text");
+        tileTextAttributes[0].appendChild(tileXml.createTextNode(totalKm.toString()));
+        
+        //Obtem Template
+        var wideTemplate = notifications.TileTemplateType.tileWide310x150BlockAndText02;
+        var wideTileXml = notifications.TileUpdateManager.getTemplateContent(wideTemplate);
+
+        //Configura Texto
+        var wideTileTextAttributes = wideTileXml.getElementsByTagName("text");
+        wideTileTextAttributes[0].appendChild(wideTileXml.createTextNode(totalKm.toString()));
+        if (!WinJS.Utilities.isPhone) {
+            wideTileTextAttributes[1].appendChild(wideTileXml.createTextNode(totalKm.toString()));
+        }
+        //wideTileTextAttributes[2].appendChild(wideTileXml.createTextNode("CET"));
+        
+        //Configura Imagem
+        //var wideTileImageAttributes = wideTileXml.getElementsByTagName("image");
+        //wideTileImageAttributes[0].setAttribute("src", "ms-appx:///images/Wide310x150Logo.png");
+        //wideTileImageAttributes[0].setAttribute("alt", "logo");
+
+        var node = tileXml.importNode(wideTileXml.getElementsByTagName("binding").item(0), true);
+        tileXml.getElementsByTagName("visual").item(0).appendChild(node);
+        
+        // Create the notification from the XML.
+        var tileNotification = new notifications.TileNotification(tileXml);
+        var seconds = 600;
+        tileNotification.expirationTime = new Date(new Date().getTime() + seconds * 1000);
+        // Send the notification to the calling app's tile.
+        notifications.TileUpdateManager.createTileUpdaterForApplication().update(tileNotification);
+        
+
+
+
         var badgeType = notifications.BadgeTemplateType.badgeNumber;
         var badgeXml = notifications.BadgeUpdateManager.getTemplateContent(badgeType);
 
@@ -109,10 +148,21 @@
 
     app.autoUpdateBadge = function () {
         var waitIntervalMinutes = 15;
-        var taskTrigger = new Windows.ApplicationModel.Background.MaintenanceTrigger(waitIntervalMinutes, false);
-        var condition = new Windows.ApplicationModel.Background.SystemCondition(Windows.ApplicationModel.Background.SystemConditionType.InternetAvailable);
 
-        var task = app.RegisterBackgroundTask("/Scripts/background.js", "CetBackGround", taskTrigger, condition);
+        var hourlyTrigger = new Windows.ApplicationModel.Background.TimeTrigger(waitIntervalMinutes, false);
+        var userCondition = new Windows.ApplicationModel.Background.SystemCondition(Windows.ApplicationModel.Background.SystemConditionType.InternetAvailable);
+        Windows.ApplicationModel.Background.BackgroundExecutionManager.requestAccessAsync();
+        
+        var entryPoint = "js\\background.js";
+        var taskName = "CetBackGround";
+
+        var task = app.RegisterBackgroundTask(entryPoint, taskName, hourlyTrigger, userCondition);
+
+        
+        //var taskTrigger = new Windows.ApplicationModel.Background.MaintenanceTrigger(waitIntervalMinutes, false);
+        //var condition = new Windows.ApplicationModel.Background.SystemCondition(Windows.ApplicationModel.Background.SystemConditionType.InternetAvailable);
+
+        //var task = app.RegisterBackgroundTask("/Scripts/background.js", "CetBackGround", taskTrigger, condition);
     };
 
     app.RegisterBackgroundTask = function (taskEntryPoint, taskName, trigger, condition) {
