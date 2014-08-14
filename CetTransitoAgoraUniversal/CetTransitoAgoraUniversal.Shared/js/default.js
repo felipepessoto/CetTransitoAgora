@@ -147,10 +147,11 @@
     };
 
     app.autoUpdateBadge = function () {
+        
         var waitIntervalMinutes = 15;
 
         var hourlyTrigger = new Windows.ApplicationModel.Background.TimeTrigger(waitIntervalMinutes, false);
-        var userCondition = new Windows.ApplicationModel.Background.SystemCondition(Windows.ApplicationModel.Background.SystemConditionType.InternetAvailable);
+        var userCondition = new Windows.ApplicationModel.Background.SystemCondition(Windows.ApplicationModel.Background.SystemConditionType.internetAvailable);
         Windows.ApplicationModel.Background.BackgroundExecutionManager.requestAccessAsync();
         
         var entryPoint = "js\\background.js";
@@ -198,8 +199,8 @@
         //
         var builder = new background.BackgroundTaskBuilder();
 
-        builder.Name = taskName;
-        builder.TaskEntryPoint = taskEntryPoint;
+        builder.name = taskName;
+        builder.taskEntryPoint = taskEntryPoint;
         //builder.isNetworkRequested = true;
         builder.setTrigger(trigger);
 
