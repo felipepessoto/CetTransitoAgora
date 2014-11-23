@@ -68,6 +68,16 @@
         notifications.BadgeUpdateManager.createBadgeUpdaterForApplication().update(badgeNotification);
     };
     
-    updateBadge(80);
+    WinJS.xhr({
+        url: "http://cetsp1.cetsp.com.br/monitransmapa/agora/",
+        responseType: "text"
+    }).done(
+           function completed(result) {
+               if (result.status === 200) {
+                   var inicio = result.responseText.substring(result.responseText.indexOf("class=\"lentidao\"><b>") + 20);
+                   var totalKm = inicio.substring(0, inicio.indexOf("<"));
+                   updateBadge(totalKm);
+               }
+           });
 })();
 
