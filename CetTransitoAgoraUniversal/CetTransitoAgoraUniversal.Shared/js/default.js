@@ -35,7 +35,7 @@
     };
 
     app.afterProcessAll = function () {
-        //app.autoUpdateBadge();
+        app.autoUpdateBadge();
         app.atualizarDados();
     };
 
