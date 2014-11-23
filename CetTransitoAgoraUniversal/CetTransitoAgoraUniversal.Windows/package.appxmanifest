@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="915Fujiy.CET-TransitoAgora" Version="1.2.0.3" Publisher="CN=9FAEAAEF-74D6-4DD5-B2FB-B5C397EFD3E4" />
+  <Identity Name="915Fujiy.CET-TransitoAgora" Version="1.2.0.9" Publisher="CN=9FAEAAEF-74D6-4DD5-B2FB-B5C397EFD3E4" />
   <Properties>
     <DisplayName>CET - Transito Agora</DisplayName>
     <PublisherDisplayName>Fujiy</PublisherDisplayName>
