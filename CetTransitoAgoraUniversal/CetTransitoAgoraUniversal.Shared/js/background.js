@@ -78,6 +78,7 @@
                    var totalKm = inicio.substring(0, inicio.indexOf("<"));
                    updateBadge(totalKm);
                }
+               close();
            });
 })();
 
