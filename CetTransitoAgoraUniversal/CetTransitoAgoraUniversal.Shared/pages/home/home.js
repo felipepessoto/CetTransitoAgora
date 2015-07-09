@@ -10,12 +10,19 @@
         ready: function (element, options) {
             home.atualizarDados();
             element.querySelector("#cmdRefresh").addEventListener("click", home.doClickRefresh, false);
+            $("a").click(home.linkClickEventHandler);
         }
     });
 
     home.doClickRefresh = function () {
         home.atualizarDados();
     };
+
+    home.linkClickEventHandler = function (eventInfo) {
+        eventInfo.preventDefault();
+        var regiao = $(this).data("regiao");
+        WinJS.Navigation.navigate($(this).prop("href"), { nome: regiao, html: $('#' + regiao).html() });
+    }
 
     home.atualizarDados = function () {
 

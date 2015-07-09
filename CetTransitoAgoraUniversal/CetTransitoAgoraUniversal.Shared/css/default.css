@@ -42,13 +42,12 @@
 
 .nome_regiao {
     font-weight: bold;
-    width: 100px;
+    width: 120px;
     display: inline-block;
 }
 
 #conteudo {
     display: none;
-    margin-top: 30px;
 }
 
 .regioes {

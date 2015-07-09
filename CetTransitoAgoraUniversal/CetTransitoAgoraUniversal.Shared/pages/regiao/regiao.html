@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>page</title>
+
+    <link href="regiao.css" rel="stylesheet" />
+    <script src="regiao.js"></script>
+</head>
+<body>
+    <div id="appBar" data-win-control="WinJS.UI.AppBar" data-win-options="{ closedDisplayMode : minimal}">
+        <button data-win-control="WinJS.UI.AppBarCommand"
+                data-win-options="{id:'cmdPin', label:'Pin', icon:'pin', section:'primary', tooltip:'Pin'}"></button>
+    </div>
+    <div class="page fragment">
+        <header class="page-header" aria-label="Header content" role="banner">
+            <button class="back-button" data-win-control="WinJS.UI.BackButton"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle"></span>
+            </h1>
+        </header>
+        <section class="page-section" aria-label="Main content" role="main">
+            <p id="content"></p>
+        </section>
+    </div>
+</body>
+</html>
