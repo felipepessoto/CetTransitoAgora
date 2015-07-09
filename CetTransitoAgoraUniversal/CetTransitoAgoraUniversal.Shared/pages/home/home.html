@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>CET - Transito Agora</title>
+
+    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/pages/home/home.css" rel="stylesheet" />
+    <script src="/pages/home/home.js"></script>
+</head>
+<body>
+    <div id="appBar" data-win-control="WinJS.UI.AppBar" data-win-options="{ closedDisplayMode : minimal}">
+        <button data-win-control="WinJS.UI.AppBarCommand"
+                data-win-options="{id:'cmdRefresh', label:'Refresh', icon:'refresh', section:'primary', tooltip:'Refresh'}"></button>
+    </div>
+
+    <!-- The content that will be loaded and displayed. -->
+    <div class="fragment homepage">
+        <header aria-label="Header content" role="banner">
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle">CET - Trânsito Agora</span>
+            </h1>
+        </header>
+        <section aria-label="Main content" role="main">
+            <div id="conteudo">
+                <div>Atualizado em: <span id="hora"></span></div><br />
+                <div class="regioes">
+                    <div><span class="nome_regiao">Total: </span><span id="total"></span></div>
+                    <div><span class="nome_regiao">Norte: </span><span id="norte"></span></div>
+                    <div><span class="nome_regiao">Leste: </span><span id="leste"></span></div>
+                    <div><span class="nome_regiao">Centro: </span><span id="centro"></span></div>
+                    <div><span class="nome_regiao">Oeste: </span><span id="oeste"></span></div>
+                    <div><span class="nome_regiao">Sul: </span><span id="sul"></span></div>
+                </div>
+            </div>
+            <div id="carregando">Carregando</div>
+        </section>
+    </div>
+</body>
+</html>

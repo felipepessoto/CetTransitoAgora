@@ -7,14 +7,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)css\default.css" />
-    <Content Include="$(MSBuildThisFileDirectory)default.html" />
     <Content Include="$(MSBuildThisFileDirectory)images\ALTA.gif" />
     <Content Include="$(MSBuildThisFileDirectory)images\BAIXA.gif" />
     <Content Include="$(MSBuildThisFileDirectory)images\ESTAVEL.gif" />
-    <Content Include="$(MSBuildThisFileDirectory)js\Appbar.js" />
     <Content Include="$(MSBuildThisFileDirectory)js\background.js" />
     <Content Include="$(MSBuildThisFileDirectory)js\default.js" />
     <Content Include="$(MSBuildThisFileDirectory)js\jquery-2.1.0.min.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\navigator.js" />
+    <Content Include="$(MSBuildThisFileDirectory)pages\home\home.html" />
+    <Content Include="$(MSBuildThisFileDirectory)pages\home\home.js" />
     <Content Include="$(MSBuildThisFileDirectory)privacy.html" />
   </ItemGroup>
 </Project>
