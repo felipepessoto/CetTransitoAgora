@@ -37,8 +37,6 @@
     app.afterProcessAll = function () {
         app.autoUpdateBadge();
         app.atualizarDados();
-
-        $("#btn-atualizar").click(app.atualizarDados);
     };
 
     app.atualizarDados = function () {
