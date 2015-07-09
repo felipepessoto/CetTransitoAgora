@@ -37,9 +37,14 @@
     app.afterProcessAll = function () {
         app.autoUpdateBadge();
         app.atualizarDados();
+
+        $("#btn-atualizar").click(app.atualizarDados);
     };
 
     app.atualizarDados = function () {
+
+        $('#carregando').show();
+
         $.get('http://cetsp1.cetsp.com.br/monitransmapa/agora/').done(function (data) {
             var conteudo = $('<output>').append($.parseHTML(data));
             var totalKm = conteudo.find('#lentidao').text();
