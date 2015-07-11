@@ -3,23 +3,22 @@
 (function () {
     "use strict";
 
-    var notifications = Windows.UI.Notifications;
+    var app = WinJS.Application;
     var regiao = {};
 
     WinJS.UI.Pages.define("/pages/regiao/regiao.html", {
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
-
             regiao.nome = options.nome;
             regiao.tileId = regiao.nome + "Tile";
 
-            $("#content").html(options.html);
-            $(".pagetitle").text("Região " + regiao.nome);
+            regiao.carregarDados();
 
             document.getElementById("appBar").disabled = false;
+            element.querySelector("#cmdRefresh").addEventListener("click", regiao.appbarRefreshClicked, false);
+            element.querySelector("#cmdPin").addEventListener("click", regiao.appBarPinClicked, false);
 
-            element.querySelector("#cmdPin").addEventListener("click", regiao.appbarButtonClicked, false);
             regiao.setAppbarButton();
         },
 
@@ -33,6 +32,22 @@
             // TODO: Respond to changes in layout.
         }
     });
+
+    regiao.carregarDados = function() {
+        
+        $(".pagetitle").text("Região " + regiao.nome.capitalizeFirstLetter());
+
+        var tendencia = "<img class='icon-trend' src='" + app.kmInfo[regiao.nome].imagem + "' />";
+
+        $('#nome_regiao').html(regiao.nome.capitalizeFirstLetter() + ": ");
+        $('#km_regiao').html(app.kmInfo[regiao.nome].km + " km " + tendencia);
+    }
+
+    regiao.appbarRefreshClicked = function () {
+        app.atualizarDados().done(function() {
+            regiao.carregarDados();
+        });
+    }
 
     regiao.setAppbarButton = function () {
         var commandButton = document.querySelector("#cmdPin").winControl;
@@ -50,7 +65,7 @@
         document.getElementById("appBar").winControl.sticky = false;
     }
 
-    regiao.appbarButtonClicked = function () {
+    regiao.appBarPinClicked = function () {
         document.getElementById("appBar").winControl.sticky = true;
 
         if (WinJS.UI.AppBarIcon.unpin === document.getElementById("cmdPin").winControl.icon) {
@@ -64,7 +79,7 @@
                 }
             });
         } else {
-            regiao.pinByElementAsync(document.getElementById("cmdPin"), regiao.tileId, "App bar pinned secondary tile", "A secondary tile that was pinned by the user from the app bar").done(function (isCreated) {
+            regiao.pinByElementAsync(document.getElementById("cmdPin"), regiao.tileId).done(function (isCreated) {
                 if (isCreated) {
                     WinJS.log && WinJS.log("Secondary tile was successfully pinned.", "sample", "status");
                     regiao.setAppbarButton();
@@ -76,22 +91,21 @@
         }
     }
 
-    regiao.pinByElementAsync = function (element, newTileID, newTileDisplayName) {
+    regiao.pinByElementAsync = function (element, newTileId) {
 
-        var square150x150Logo = new Windows.Foundation.Uri("ms-appx:///Images/square150x150Tile-sdk.png");
-        var square30x30Logo = new Windows.Foundation.Uri("ms-appx:///Images/square30x30Tile-sdk.png");
+        var square150X150Logo = new Windows.Foundation.Uri("ms-appx:///Images/square150x150Tile-sdk.png");
+        var square30X30Logo = new Windows.Foundation.Uri("ms-appx:///Images/square30x30Tile-sdk.png");
 
-        var currentTime = new Date();
-        var TileActivationArguments = newTileID + " was pinned at=" + currentTime;
+        var tileActivationArguments = app.kmInfo[regiao.nome].km;
 
-        var tile = new Windows.UI.StartScreen.SecondaryTile(newTileID,
-                                                            newTileDisplayName,
-                                                            TileActivationArguments,
-                                                            square150x150Logo,
+        var tile = new Windows.UI.StartScreen.SecondaryTile(newTileId,
+                                                            regiao.nome.capitalizeFirstLetter() + ": " +app.kmInfo[regiao.nome].km,
+                                                            tileActivationArguments,
+                                                            square150X150Logo,
                                                             Windows.UI.StartScreen.TileSize.square150x150);
 
         tile.visualElements.foregroundText = Windows.UI.StartScreen.ForegroundText.light;
-        tile.visualElements.square30x30Logo = square30x30Logo;
+        tile.visualElements.square30x30Logo = square30X30Logo;
         tile.visualElements.showNameOnSquare150x150Logo = true;
 
         var selectionRect = element.getBoundingClientRect();
@@ -107,13 +121,13 @@
         });
     }
 
-    regiao.unpinByElementAsync = function (element, unwantedTileID) {
+    regiao.unpinByElementAsync = function (element, unwantedTileId) {
 
         var selectionRect = element.getBoundingClientRect();
         var buttonCoordinates = { x: selectionRect.left, y: selectionRect.top, width: selectionRect.width, height: selectionRect.height };
         var placement = Windows.UI.Popups.Placement.above;
 
-        var tileToDelete = new Windows.UI.StartScreen.SecondaryTile(unwantedTileID);
+        var tileToDelete = new Windows.UI.StartScreen.SecondaryTile(unwantedTileId);
 
         return new WinJS.Promise(function (complete, error, progress) {
             tileToDelete.requestDeleteForSelectionAsync(buttonCoordinates, placement).done(function (isDeleted) {

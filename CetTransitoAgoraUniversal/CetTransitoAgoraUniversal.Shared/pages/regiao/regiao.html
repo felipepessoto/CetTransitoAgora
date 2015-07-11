@@ -10,6 +10,8 @@
 <body>
     <div id="appBar" data-win-control="WinJS.UI.AppBar" data-win-options="">
         <button data-win-control="WinJS.UI.AppBarCommand"
+                data-win-options="{id:'cmdRefresh', label:'Refresh', icon:'refresh', tooltip:'Refresh', section:'primary'}"></button>
+        <button data-win-control="WinJS.UI.AppBarCommand"
                 data-win-options="{id:'cmdPin', label:'Pin', icon:'pin', section:'global', tooltip:'Pin'}"></button>
     </div>
     <div class="page fragment">
@@ -20,7 +22,9 @@
             </h1>
         </header>
         <section class="page-section" aria-label="Main content" role="main">
-            <p id="content"></p>
+            <div class="regioes">
+                <div><span id="nome_regiao" class="nome_regiao"></span><span id="km_regiao"></span></div>
+            </div>
         </section>
     </div>
 </body>

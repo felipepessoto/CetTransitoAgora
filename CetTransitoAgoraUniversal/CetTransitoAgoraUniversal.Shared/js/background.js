@@ -12,11 +12,7 @@
     "use strict";
 
     var notifications = Windows.UI.Notifications;
-    try {
-        importScripts("//Microsoft.Phone.WinJS.2.1/js/base.js");
-    } catch (e) {
-        importScripts("//Microsoft.WinJS.2.0/js/base.js");
-    }
+    importScripts("/WinJS/js/base.js");
     
     var updateBadge = function (totalKm) {
 

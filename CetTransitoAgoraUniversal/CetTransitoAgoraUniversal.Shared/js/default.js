@@ -9,7 +9,35 @@
     var sched = WinJS.Utilities.Scheduler;
     var ui = WinJS.UI;
 
-    
+    var notifications = Windows.UI.Notifications;
+    app.ultimaAtualizacao = null;
+    app.kmInfo = {
+        total: {
+            percentual: null,
+            km: null,
+            imagem: null
+        },
+        norte: {
+            km: null,
+            imagem: null
+        },
+        leste: {
+            km: null,
+            imagem: null
+        },
+        centro: {
+            km: null,
+            imagem: null
+        },
+        oeste: {
+            km: null,
+            imagem: null
+        },
+        sul: {
+            km: null,
+            imagem: null
+        }
+    }
 
     WinJS.Application.onsettings = function (e) {
         e.detail.applicationcommands = { "privacyPolicy": { title: "Privacy Policy", href: "/privacy.html" } };
@@ -51,24 +79,20 @@
         app.sessionState.history = nav.history;
     };
 
-    app.afterProcessAll = function () {
-        app.autoUpdateBadge();
-    };
-
     app.autoUpdateBadge = function () {
-        
+
         var waitIntervalMinutes = 15;
 
         var hourlyTrigger = new Windows.ApplicationModel.Background.TimeTrigger(waitIntervalMinutes, false);
         var userCondition = new Windows.ApplicationModel.Background.SystemCondition(Windows.ApplicationModel.Background.SystemConditionType.internetAvailable);
         Windows.ApplicationModel.Background.BackgroundExecutionManager.requestAccessAsync();
-        
+
         var entryPoint = "js\\background.js";
         var taskName = "CetBackGround";
 
         var task = app.RegisterBackgroundTask(entryPoint, taskName, hourlyTrigger, userCondition);
 
-        
+
         //var taskTrigger = new Windows.ApplicationModel.Background.MaintenanceTrigger(waitIntervalMinutes, false);
         //var condition = new Windows.ApplicationModel.Background.SystemCondition(Windows.ApplicationModel.Background.SystemConditionType.InternetAvailable);
 
@@ -123,5 +147,106 @@
         return task;
     };
 
+    app.atualizarDados = function () {
+
+        var promise = $.get('http://cetsp1.cetsp.com.br/monitransmapa/agora/').done(function (data) {
+            var conteudo = $('<output>').append($.parseHTML(data));
+
+            app.ultimaAtualizacao = conteudo.find('#hora').text();
+
+            app.kmInfo.total.km = conteudo.find('#lentidao').text().split(" km")[0];
+            app.kmInfo.total.imagem = app.getTrendImage(conteudo.find('#tendencia > img').attr('src'));
+
+            app.kmInfo.norte.km = conteudo.find('#NorteLentidao').text().split(" km")[0];
+            app.kmInfo.norte.imagem = app.getTrendImage(conteudo.find('#NorteTendencia > img').attr('src'));
+
+            app.kmInfo.leste.km = conteudo.find('#LesteLentidao').text().split(" km")[0];
+            app.kmInfo.leste.imagem = app.getTrendImage(conteudo.find('#LesteTendencia > img').attr('src'));
+
+            app.kmInfo.centro.km = conteudo.find('#CentroLentidao').text().split(" km")[0];
+            app.kmInfo.centro.imagem = app.getTrendImage(conteudo.find('#CentroTendencia > img').attr('src'));
+
+            app.kmInfo.oeste.km = conteudo.find('#OesteLentidao').text().split(" km")[0];
+            app.kmInfo.oeste.imagem = app.getTrendImage(conteudo.find('#OesteTendencia > img').attr('src'));
+
+            app.kmInfo.sul.km = conteudo.find('#SulLentidao').text().split(" km")[0];
+            app.kmInfo.sul.imagem = app.getTrendImage(conteudo.find('#SulTendencia > img').attr('src'));
+
+            app.kmInfo.total.percentual = conteudo.find('#percentualLentidao').text();
+
+            app.updateBadge(app.kmInfo.total.km);
+        });
+
+        return promise;
+    };
+
+    app.getTrendImage = function (cetImage) {
+        cetImage = cetImage.toLowerCase();
+        if (cetImage === "img\\estavel.gif")
+            return "/images/estavel.gif";
+        if (cetImage === "img\\alta.gif")
+            return "/images/alta.gif";
+        if (cetImage === "img\\baixa.gif")
+            return "/images/baixa.gif";
+
+        return null;
+    };
+
+    app.updateBadge = function (totalKm) {
+
+        //Obtem Template
+        var template = notifications.TileTemplateType.tileSquare150x150Block;
+        var tileXml = notifications.TileUpdateManager.getTemplateContent(template);
+
+        //Configura Texto
+        var tileTextAttributes = tileXml.getElementsByTagName("text");
+        tileTextAttributes[0].appendChild(tileXml.createTextNode(totalKm.toString()));
+
+        //Obtem Template
+        var wideTemplate = notifications.TileTemplateType.tileWide310x150BlockAndText02;
+        var wideTileXml = notifications.TileUpdateManager.getTemplateContent(wideTemplate);
+
+        //Configura Texto
+        var wideTileTextAttributes = wideTileXml.getElementsByTagName("text");
+        wideTileTextAttributes[0].appendChild(wideTileXml.createTextNode(totalKm.toString()));
+        if (!WinJS.Utilities.isPhone) {
+            wideTileTextAttributes[1].appendChild(wideTileXml.createTextNode(totalKm.toString()));
+        }
+        //wideTileTextAttributes[2].appendChild(wideTileXml.createTextNode("CET"));
+
+        //Configura Imagem
+        //var wideTileImageAttributes = wideTileXml.getElementsByTagName("image");
+        //wideTileImageAttributes[0].setAttribute("src", "ms-appx:///images/Wide310x150Logo.png");
+        //wideTileImageAttributes[0].setAttribute("alt", "logo");
+
+        var node = tileXml.importNode(wideTileXml.getElementsByTagName("binding").item(0), true);
+        tileXml.getElementsByTagName("visual").item(0).appendChild(node);
+
+        // Create the notification from the XML.
+        var tileNotification = new notifications.TileNotification(tileXml);
+        var seconds = 600;
+        tileNotification.expirationTime = new Date(new Date().getTime() + seconds * 1000);
+        // Send the notification to the calling app's tile.
+        notifications.TileUpdateManager.createTileUpdaterForApplication().update(tileNotification);
+
+
+
+
+        var badgeType = notifications.BadgeTemplateType.badgeNumber;
+        var badgeXml = notifications.BadgeUpdateManager.getTemplateContent(badgeType);
+
+        var badgeAttributes = badgeXml.getElementsByTagName("badge");
+        badgeAttributes[0].setAttribute("value", totalKm);
+
+        var badgeNotification = new notifications.BadgeNotification(badgeXml);
+        notifications.BadgeUpdateManager.createBadgeUpdaterForApplication().update(badgeNotification);
+    };
+
     app.start();
+
+    app.autoUpdateBadge();
 })();
+
+String.prototype.capitalizeFirstLetter = function () {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
