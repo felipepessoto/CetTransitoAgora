@@ -4,6 +4,7 @@
     "use strict";
 
     var app = WinJS.Application;
+    var nav = WinJS.Navigation;
     var regiao = {};
 
     WinJS.UI.Pages.define("/pages/regiao/regiao.html", {
@@ -16,6 +17,7 @@
             regiao.carregarDados();
 
             document.getElementById("appBar").disabled = false;
+            element.querySelector("#cmdHome").addEventListener("click", regiao.irParaHome, false);
             element.querySelector("#cmdRefresh").addEventListener("click", regiao.appbarRefreshClicked, false);
             element.querySelector("#cmdPin").addEventListener("click", regiao.appBarPinClicked, false);
 
@@ -32,6 +34,10 @@
             // TODO: Respond to changes in layout.
         }
     });
+
+    regiao.irParaHome = function() {
+        nav.navigate(Application.navigator.home);
+    }
 
     regiao.carregarDados = function() {
         

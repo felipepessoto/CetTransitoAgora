@@ -8,12 +8,14 @@
     <script src="regiao.js"></script>
 </head>
 <body>
-    <div id="appBar" data-win-control="WinJS.UI.AppBar" data-win-options="">
-        <button data-win-control="WinJS.UI.AppBarCommand"
-                data-win-options="{id:'cmdRefresh', label:'Refresh', icon:'refresh', tooltip:'Refresh', section:'primary'}"></button>
-        <button data-win-control="WinJS.UI.AppBarCommand"
-                data-win-options="{id:'cmdPin', label:'Pin', icon:'pin', section:'global', tooltip:'Pin'}"></button>
-    </div>
+<div id="appBar" data-win-control="WinJS.UI.AppBar" data-win-options="">
+    <button data-win-control="WinJS.UI.AppBarCommand"
+            data-win-options="{id:'cmdHome', label:'Home', icon:'home', tooltip:'Home', section:'global'}"></button>
+    <button data-win-control="WinJS.UI.AppBarCommand"
+            data-win-options="{id:'cmdRefresh', label:'Refresh', icon:'refresh', tooltip:'Refresh', section:'global'}"></button>
+    <button data-win-control="WinJS.UI.AppBarCommand"
+            data-win-options="{id:'cmdPin', label:'Pin', icon:'pin', section:'global', tooltip:'Pin'}"></button>
+</div>
     <div class="page fragment">
         <header class="page-header" aria-label="Header content" role="banner">
             <button class="back-button" data-win-control="WinJS.UI.BackButton"></button>
