@@ -99,7 +99,7 @@
         var tileActivationArguments = app.kmInfo[regiao.nome].km;
 
         var tile = new Windows.UI.StartScreen.SecondaryTile(newTileId,
-                                                            regiao.nome.capitalizeFirstLetter() + ": " +app.kmInfo[regiao.nome].km,
+                                                            regiao.nome.capitalizeFirstLetter(),
                                                             tileActivationArguments,
                                                             square150X150Logo,
                                                             Windows.UI.StartScreen.TileSize.square150x150);
@@ -113,6 +113,7 @@
         return new WinJS.Promise(function (complete, error, progress) {
             tile.requestCreateForSelectionAsync({ x: selectionRect.left, y: selectionRect.top, width: selectionRect.width, height: selectionRect.height }, Windows.UI.Popups.Placement.above).done(function (isCreated) {
                 if (isCreated) {
+                    app.atualizarDados();
                     complete(true);
                 } else {
                     complete(false);
