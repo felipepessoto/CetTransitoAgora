@@ -152,7 +152,7 @@
         var promise = $.get('http://cetsp1.cetsp.com.br/monitransmapa/agora/').done(function (data) {
             var conteudo = $('<output>').append($.parseHTML(data));
 
-            app.ultimaAtualizacao = conteudo.find('#hora').text();
+            app.kmInfo.ultimaAtualizacao = conteudo.find('#hora').text();
 
             app.kmInfo.total.km = conteudo.find('#lentidao').text().split(" km")[0];
             app.kmInfo.total.imagem = app.getTrendImage(conteudo.find('#tendencia > img').attr('src'));
