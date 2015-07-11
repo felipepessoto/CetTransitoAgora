@@ -14,6 +14,7 @@
     <Content Include="$(MSBuildThisFileDirectory)js\default.js" />
     <Content Include="$(MSBuildThisFileDirectory)js\jquery-2.1.0.min.js" />
     <Content Include="$(MSBuildThisFileDirectory)js\navigator.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\TilesNotificationUpdater.js" />
     <Content Include="$(MSBuildThisFileDirectory)pages\home\home.html" />
     <Content Include="$(MSBuildThisFileDirectory)pages\home\home.js" />
     <Content Include="$(MSBuildThisFileDirectory)pages\regiao\regiao.css" />
