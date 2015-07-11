@@ -9,7 +9,6 @@
     var sched = WinJS.Utilities.Scheduler;
     var ui = WinJS.UI;
 
-    var notifications = Windows.UI.Notifications;
     app.ultimaAtualizacao = null;
     app.kmInfo = {
         total: {
@@ -47,12 +46,12 @@
     app.onactivated = function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
             if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {
-                // TODO: This application has been newly launched. Initialize
-                // your application here.
+                // TODO: This application has been newly launched. Initialize your application here.
             } else {
-                // TODO: This application has been reactivated from suspension.
-                // Restore application state here.
+                // TODO: This application has been reactivated from suspension. Restore application state here.
             }
+
+            var tileArguments = args.detail.arguments;
 
             nav.history = app.sessionState.history || {};
             nav.history.current.initialPlaceholder = true;
@@ -60,7 +59,17 @@
             // Optimize the load of the application and while the splash screen is shown, execute high priority scheduled work.
             ui.disableAnimations();
             var p = ui.processAll().then(function () {
+
+                if (tileArguments !== '') {
+                    var keyValue = tileArguments.split(":");
+                    if (keyValue[0] === "regiao") {
+                        return app.atualizarDados().done(function () {
+                            return nav.navigate("/pages/regiao/regiao.html", { nome: keyValue[1] });
+                        });
+                    }
+                }
                 return nav.navigate(nav.location || Application.navigator.home, nav.state);
+
             }).then(function () {
                 return sched.requestDrain(sched.Priority.aboveNormal + 1);
             }).then(function () {

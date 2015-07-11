@@ -39,7 +39,7 @@
 
         var tendencia = "<img class='icon-trend' src='" + app.kmInfo[regiao.nome].imagem + "' />";
 
-        $('#nome_regiao').html(regiao.nome.capitalizeFirstLetter() + ": ");
+        $('#nome_regiao').text(regiao.nome.capitalizeFirstLetter() + ": ");
         $('#km_regiao').html(app.kmInfo[regiao.nome].km + " km " + tendencia);
     }
 
@@ -96,7 +96,7 @@
         var square150X150Logo = new Windows.Foundation.Uri("ms-appx:///Images/square150x150Tile-sdk.png");
         var square30X30Logo = new Windows.Foundation.Uri("ms-appx:///Images/square30x30Tile-sdk.png");
 
-        var tileActivationArguments = app.kmInfo[regiao.nome].km;
+        var tileActivationArguments = "regiao:" + regiao.nome;
 
         var tile = new Windows.UI.StartScreen.SecondaryTile(newTileId,
                                                             regiao.nome.capitalizeFirstLetter(),
