@@ -19,9 +19,6 @@
     <Content Include="$(MSBuildThisFileDirectory)pages\regiao\regiao.css" />
     <Content Include="$(MSBuildThisFileDirectory)pages\regiao\regiao.html" />
     <Content Include="$(MSBuildThisFileDirectory)pages\regiao\regiao.js" />
-    <Content Include="$(MSBuildThisFileDirectory)pages\sul\sul.css" />
-    <Content Include="$(MSBuildThisFileDirectory)pages\sul\sul.html" />
-    <Content Include="$(MSBuildThisFileDirectory)pages\sul\sul.js" />
     <Content Include="$(MSBuildThisFileDirectory)privacy.html" />
   </ItemGroup>
 </Project>
