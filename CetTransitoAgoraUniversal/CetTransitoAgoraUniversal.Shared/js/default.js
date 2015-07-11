@@ -175,6 +175,11 @@
             app.kmInfo.total.percentual = conteudo.find('#percentualLentidao').text();
 
             app.updateBadge(app.kmInfo.total.km);
+            app.updateSecondary("norte", app.kmInfo.norte.km);
+            app.updateSecondary("leste", app.kmInfo.leste.km);
+            app.updateSecondary("centro", app.kmInfo.centro.km);
+            app.updateSecondary("oeste", app.kmInfo.oeste.km);
+            app.updateSecondary("sul", app.kmInfo.sul.km);
         });
 
         return promise;
@@ -241,6 +246,52 @@
         var badgeNotification = new notifications.BadgeNotification(badgeXml);
         notifications.BadgeUpdateManager.createBadgeUpdaterForApplication().update(badgeNotification);
     };
+
+    app.updateSecondary = function (nomeRegiao, kmRegiao) {
+
+        var tileId = nomeRegiao + "Tile";
+
+        if (Windows.UI.StartScreen.SecondaryTile.exists(tileId)) {
+
+            // Define the badge content
+            var badgeNotificationSecondary = notifications.BadgeUpdateManager.getTemplateContent(notifications.BadgeTemplateType.badgeNumber);
+            var badgeAttributesSecondary = badgeNotificationSecondary.getElementsByTagName("badge");
+            badgeAttributesSecondary[0].setAttribute("value", kmRegiao);
+
+            // Create the notification based on the XML content.
+            var badge = new notifications.BadgeNotification(badgeNotificationSecondary);
+
+            // Create a secondary tile updater, passing it the ID of the tile.
+            var secondaryTile = notifications.BadgeUpdateManager.createBadgeUpdaterForSecondaryTile(tileId);
+
+            // Send the notification to the secondary tile.
+            secondaryTile.update(badge);
+
+
+            // Define the notification content.
+            var tileXml = notifications.TileUpdateManager.getTemplateContent(notifications.TileTemplateType.tileWide310x150Text04);
+            var tileTextAttributes = tileXml.getElementsByTagName("text");
+            tileTextAttributes[0].appendChild(tileXml.createTextNode(kmRegiao));
+
+            // Provide a square version of the notification.
+            var squareTileXml = notifications.TileUpdateManager.getTemplateContent(notifications.TileTemplateType.tileSquare150x150Block);
+            var squareTileTextAttributes = squareTileXml.getElementsByTagName("text");
+            squareTileTextAttributes[0].appendChild(squareTileXml.createTextNode(kmRegiao));
+
+            // Add the medium tile to the notification.
+            var node = tileXml.importNode(squareTileXml.getElementsByTagName("binding").item(0), true);
+            tileXml.getElementsByTagName("visual").item(0).appendChild(node);
+
+            // Create the notification based on the XML content.
+            var tileNotification = new notifications.TileNotification(tileXml);
+
+            // Create a secondary tile updater, passing it the ID of the tile.
+            var tileUpdater = notifications.TileUpdateManager.createTileUpdaterForSecondaryTile(tileId);
+
+            // Send the notification to the secondary tile.
+            tileUpdater.update(tileNotification);
+        }
+    }
 
     app.start();
 
