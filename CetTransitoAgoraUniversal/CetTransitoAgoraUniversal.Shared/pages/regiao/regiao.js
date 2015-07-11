@@ -14,9 +14,9 @@
             regiao.nome = options.nome;
             regiao.tileId = regiao.nome + "Tile";
 
-            regiao.carregarDados();
+            regiao.carregarDados(element);
 
-            document.getElementById("appBar").disabled = false;
+            element.querySelector("#appBar").disabled = false;
             element.querySelector("#cmdHome").addEventListener("click", regiao.irParaHome, false);
             element.querySelector("#cmdRefresh").addEventListener("click", regiao.appbarRefreshClicked, false);
             element.querySelector("#cmdPin").addEventListener("click", regiao.appBarPinClicked, false);
@@ -39,14 +39,14 @@
         nav.navigate(Application.navigator.home);
     }
 
-    regiao.carregarDados = function() {
+    regiao.carregarDados = function (element) {
         
-        $(".pagetitle").text("Região " + regiao.nome.capitalizeFirstLetter());
+        $(".pagetitle", element).text("Região " + regiao.nome.capitalizeFirstLetter());
 
         var tendencia = "<img class='icon-trend' src='" + app.kmInfo[regiao.nome].imagem + "' />";
 
-        $('#nome_regiao').text(regiao.nome.capitalizeFirstLetter() + ": ");
-        $('#km_regiao').html(app.kmInfo[regiao.nome].km + " km " + tendencia);
+        $('#nome_regiao', element).text(regiao.nome.capitalizeFirstLetter() + ": ");
+        $('#km_regiao', element).html(app.kmInfo[regiao.nome].km + " km " + tendencia);
     }
 
     regiao.appbarRefreshClicked = function () {
